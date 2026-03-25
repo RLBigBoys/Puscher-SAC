@@ -1,11 +1,28 @@
+# Python
 __pycache__/
 *.py[cod]
+*.so
+
+# Virtual env / local env
 .venv/
 .env
 .python-version
+
+# IDE
+.idea/
+.vscode/
+
+# Tool caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# OS / logs
+.DS_Store
+*.log
+
+# Experiment artifacts
+artifacts/
 weights/
 logs/
 videos/
-*.pt
-*.mp4
-*.json
