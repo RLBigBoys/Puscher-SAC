@@ -18,15 +18,15 @@ In this repository, the word **environment** means the MuJoCo Pusher-v5 task fro
 
 ## 📑 Table of Contents
 
-1.  [🎯 Overview](https://www.google.com/search?q=%23overview)
-2.  [🎮 Environment Details](https://www.google.com/search?q=%23environment-details)
-3.  [🧰 Main Dependencies and Project Entry Points](https://www.google.com/search?q=%23dependencies)
-4.  [📐 Mathematics and Notation](https://www.google.com/search?q=%23mathematics)
-5.  [🧠 Soft Actor-Critic Algorithm](https://www.google.com/search?q=%23sac-algorithm)
-6.  [🖼️ Artifact Gallery](https://www.google.com/search?q=%23artifact-gallery)
-7.  [⚙️ Commands](https://www.google.com/search?q=%23commands)
-8.  [📊 Training Results](https://www.google.com/search?q=%23training-results)
-9.  [📚 References](https://www.google.com/search?q=%23references)
+- [🎯 Overview](#-overview)
+- [🎮 Environment Details](#-environment-details)
+- [🧰 Main Dependencies and Project Entry Points](#-main-dependencies-and-project-entry-points)
+- [📐 Mathematics and Notation](#-mathematics-and-notation)
+- [🧠 Soft Actor-Critic Algorithm](#-soft-actor-critic-algorithm)
+- [🖼️ Artifact Gallery](#️-artifact-gallery)
+- [⚙️ Commands](#️-commands)
+- [📊 Training Results](#-training-results)
+- [📚 References](#-references)
 
 
 ## 🎯 Overview
@@ -97,6 +97,9 @@ The 23-dimensional observation vector contains:
 | Action index | Joint            | Torque range |
 | ------------ | ---------------- | ------------ |
 | `0-6`        | Robot joints 1-7 | `[-2, 2] Nm` |
+
+
+Where Nm is Newton-meter. It is a force that causes rotation.
 
 -----
 
