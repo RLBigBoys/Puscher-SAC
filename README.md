@@ -203,11 +203,13 @@ y(s, a, s') = r(s, a) + \gamma(1-d) \cdot \left[\min_{i=1,2} Q^{\phi'_i}(s', a')
 
 ### Loss functions
 
-| Loss            | Formula                                                                                                          | Purpose                                     |
-| :-------------- | :--------------------------------------------------------------------------------------------------------------- | :------------------------------------------ |
-| **Critic loss** | $\mathcal{L}_Q(\phi) = \mathbb{E}\left[(Q^\phi(s,a) - y(s,a,s'))^2\right]$                                       | Train Q-networks to predict TD-targets      |
-| **Actor loss**  | $\mathcal{L}_\pi(\theta) = \mathbb{E}\left[\alpha \log \pi^\theta(a \| s) - \min_{i=1,2} Q^{\phi_i}(s,a)\right]$ | Improve policy to maximize soft Q-values    |
-| **Alpha loss**  | $\mathcal{L}_\alpha = \mathbb{E}\left[-\alpha (\log \pi^\theta(a \| s) + \bar{\mathcal{H}})\right]$              | Tune temperature to maintain target entropy |
+| Loss            | Formula                                                                                                           | Purpose                                     |
+| :-------------- | :---------------------------------------------------------------------------------------------------------------- | :------------------------------------------ |
+| **Critic loss** | $\mathcal{L}_Q(\phi) = \mathbb{E}\left[(Q^\phi(s,a) - y(s,a,s'))^2\right]$                                        | Train Q-networks to predict TD-targets      |
+| **Actor loss**  | $\mathcal{L}_\pi(\theta) = \mathbb{E}\left[\alpha \log \pi^\theta(a \| s) - \min_{i=1,2} Q^{\phi_i}(s,a)\right] $ | Improve policy to maximize soft Q-values    |
+| **Alpha loss**  | $\mathcal{L}_\alpha = \mathbb{E}\left[-\alpha (\log \pi^\theta(a \| s) + \bar{\mathcal{H}})\right]$               | Tune temperature to maintain target entropy |
+
+
 ### Reward function
 
 ```math
