@@ -201,16 +201,23 @@ a_t = \tanh(\mu_\theta(s_t) + \sigma_\theta(s_t) \cdot \epsilon), \quad \epsilon
 y(s, a, s') = r(s, a) + \gamma(1-d) \cdot \left[\min_{i=1,2} Q^{\phi'_i}(s', a') - \alpha \log \pi^\theta(a'|s')\right]
 ```
 
+
 ### Loss functions
 
-| Loss            | Formula                                                                                                           | Purpose                                     |
-| :-------------- | :---------------------------------------------------------------------------------------------------------------- | :------------------------------------------ |
-| **Critic loss** | $\mathcal{L}_Q(\phi) = \mathbb{E}\left[(Q^\phi(s,a) - y(s,a,s'))^2\right]$                                        | Train Q-networks to predict TD-targets      |
-| **Actor loss**  | $\mathcal{L}_\pi(\theta) = \mathbb{E}\left[\alpha \log \pi^\theta(a \| s) - \min_{i=1,2} Q^{\phi_i}(s,a)\right] $ | Improve policy to maximize soft Q-values    |
-| **Alpha loss**  | $\mathcal{L}_\alpha = \mathbb{E}\left[-\alpha (\log \pi^\theta(a \| s) + \bar{\mathcal{H}})\right]$               | Tune temperature to maintain target entropy |
+**Critic loss** trains the Q-networks to predict TD-targets:
+```math
+\mathcal{L}_Q(\phi) = \mathbb{E}\left[(Q^\phi(s,a) - y(s,a,s'))^2\right]
+```
 
+**Actor loss** improves the policy to maximize soft Q-values:
+```math
+\mathcal{L}_\pi(\theta) = \mathbb{E}\left[\alpha \log \pi^\theta(a \mid s) - \min_{i=1,2} Q^{\phi_i}(s,a)\right]
+```
 
-### Reward function
+**Alpha loss** tunes the temperature to maintain target entropy:
+```math
+\mathcal{L}_\alpha = \mathbb{E}\left[-\alpha (\log \pi^\theta(a \mid s) + \bar{\mathcal{H}})\right]
+```
 
 ```math
 r_t = r_t^{\text{dist}} + r_t^{\text{near}} + r_t^{\text{ctrl}}
