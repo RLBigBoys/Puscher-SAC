@@ -7,10 +7,17 @@ from typing import Iterable
 import gymnasium as gym
 import imageio.v2 as imageio
 import numpy as np
+<<<<<<< HEAD
 from stable_baselines3 import SAC
 
 try:
     from .config import Config
+=======
+
+try:
+    from .config import Config
+    from .custom_sac import CustomSACAgent
+>>>>>>> d65a859ed45d7f3d5bdc83cb1279b522b7a16e68
     from .utils import (
         checkpoint_paths,
         compute_final_distance,
@@ -22,6 +29,10 @@ try:
     )
 except ImportError:
     from config import Config
+<<<<<<< HEAD
+=======
+    from custom_sac import CustomSACAgent
+>>>>>>> d65a859ed45d7f3d5bdc83cb1279b522b7a16e68
     from utils import (
         checkpoint_paths,
         compute_final_distance,
@@ -34,11 +45,21 @@ except ImportError:
 
 
 def parse_args() -> argparse.Namespace:
+<<<<<<< HEAD
     parser = argparse.ArgumentParser(description="Evaluate SAC checkpoints on Pusher-v5.")
+=======
+    parser = argparse.ArgumentParser(description="Evaluate a custom PyTorch SAC checkpoint on Pusher-v5.")
+>>>>>>> d65a859ed45d7f3d5bdc83cb1279b522b7a16e68
     parser.add_argument("--run-dir", type=str, default=None)
     parser.add_argument("--checkpoint", choices=["best", "last", "both"], default="last")
     parser.add_argument("--episodes", type=int, default=None)
     parser.add_argument("--video", action="store_true")
+<<<<<<< HEAD
+=======
+    parser.add_argument("--max-episode-steps", type=int, default=None)
+    parser.add_argument("--video-episodes", type=int, default=None)
+    parser.add_argument("--fps", type=int, default=None)
+>>>>>>> d65a859ed45d7f3d5bdc83cb1279b522b7a16e68
     return parser.parse_args()
 
 
@@ -69,8 +90,18 @@ def evaluate_checkpoint(
         raise FileNotFoundError(f"Checkpoint not found: {paths['model']}")
 
     render_mode = "rgb_array" if record_video else None
+<<<<<<< HEAD
     env = gym.make(cfg.env_id, render_mode=render_mode)
     model = SAC.load(str(paths["model"]), env=env, device=cfg.device)
+=======
+    env = gym.make(
+        cfg.env_id,
+        render_mode=render_mode,
+        max_episode_steps=cfg.max_episode_steps,
+    )
+    agent = CustomSACAgent(env.observation_space, env.action_space, cfg)
+    agent.load_checkpoint(paths["model"])
+>>>>>>> d65a859ed45d7f3d5bdc83cb1279b522b7a16e68
 
     writer = None
     if record_video:
@@ -90,14 +121,23 @@ def evaluate_checkpoint(
             terminated = False
             truncated = False
             while not (terminated or truncated):
+<<<<<<< HEAD
                 action, _ = model.predict(obs, deterministic=cfg.eval_deterministic)
+=======
+                action = agent.select_action(obs, deterministic=cfg.eval_deterministic)
+>>>>>>> d65a859ed45d7f3d5bdc83cb1279b522b7a16e68
                 obs, reward, terminated, truncated, _ = env.step(action)
                 episode_return += float(reward)
                 if record_this_episode:
                     maybe_record_frame(writer, env)
             final_distance = compute_final_distance(obs)
+<<<<<<< HEAD
             returns.append(episode_return)
             final_distances.append(final_distance)
+=======
+            returns.append(float(episode_return))
+            final_distances.append(float(final_distance))
+>>>>>>> d65a859ed45d7f3d5bdc83cb1279b522b7a16e68
             successes.append(float(final_distance < cfg.success_threshold))
     finally:
         if writer is not None:
@@ -125,7 +165,11 @@ def evaluate_checkpoints(
     save_path: str | Path | None = None,
 ) -> dict[str, dict]:
     run_path = Path(run_dir)
+<<<<<<< HEAD
     results = {}
+=======
+    results: dict[str, dict] = {}
+>>>>>>> d65a859ed45d7f3d5bdc83cb1279b522b7a16e68
     for checkpoint in checkpoints:
         results[checkpoint] = evaluate_checkpoint(
             run_dir=run_path,
@@ -147,6 +191,15 @@ def main() -> dict[str, dict]:
     cfg = load_config_for_run(run_dir)
     if args.episodes is not None:
         cfg.n_eval_episodes = args.episodes
+<<<<<<< HEAD
+=======
+    if args.max_episode_steps is not None:
+        cfg.max_episode_steps = args.max_episode_steps
+    if args.video_episodes is not None:
+        cfg.video_episodes = args.video_episodes
+    if args.fps is not None:
+        cfg.video_fps = args.fps
+>>>>>>> d65a859ed45d7f3d5bdc83cb1279b522b7a16e68
     checkpoints = ("best", "last") if args.checkpoint == "both" else (args.checkpoint,)
     results = evaluate_checkpoints(
         run_dir=run_dir,

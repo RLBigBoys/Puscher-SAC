@@ -741,6 +741,7 @@ wheels = [
 ]
 
 [[package]]
+<<<<<<< HEAD
 name = "pandas"
 version = "3.0.1"
 source = { registry = "https://pypi.org/simple" }
@@ -785,6 +786,8 @@ wheels = [
 ]
 
 [[package]]
+=======
+>>>>>>> d65a859ed45d7f3d5bdc83cb1279b522b7a16e68
 name = "pillow"
 version = "12.1.1"
 source = { registry = "https://pypi.org/simple" }
@@ -852,7 +855,10 @@ dependencies = [
     { name = "imageio-ffmpeg" },
     { name = "matplotlib" },
     { name = "numpy" },
+<<<<<<< HEAD
     { name = "stable-baselines3" },
+=======
+>>>>>>> d65a859ed45d7f3d5bdc83cb1279b522b7a16e68
     { name = "torch" },
 ]
 
@@ -863,7 +869,10 @@ requires-dist = [
     { name = "imageio-ffmpeg", specifier = ">=0.6.0" },
     { name = "matplotlib", specifier = ">=3.10.8" },
     { name = "numpy", specifier = ">=2.4.3" },
+<<<<<<< HEAD
     { name = "stable-baselines3", specifier = ">=2.7.1" },
+=======
+>>>>>>> d65a859ed45d7f3d5bdc83cb1279b522b7a16e68
     { name = "torch", specifier = ">=2.11.0" },
 ]
 
@@ -916,6 +925,7 @@ wheels = [
 ]
 
 [[package]]
+<<<<<<< HEAD
 name = "stable-baselines3"
 version = "2.7.1"
 source = { registry = "https://pypi.org/simple" }
@@ -933,6 +943,8 @@ wheels = [
 ]
 
 [[package]]
+=======
+>>>>>>> d65a859ed45d7f3d5bdc83cb1279b522b7a16e68
 name = "sympy"
 version = "1.14.0"
 source = { registry = "https://pypi.org/simple" }
@@ -1008,6 +1020,7 @@ wheels = [
 ]
 
 [[package]]
+<<<<<<< HEAD
 name = "tzdata"
 version = "2025.3"
 source = { registry = "https://pypi.org/simple" }
@@ -1017,6 +1030,8 @@ wheels = [
 ]
 
 [[package]]
+=======
+>>>>>>> d65a859ed45d7f3d5bdc83cb1279b522b7a16e68
 name = "zipp"
 version = "3.23.0"
 source = { registry = "https://pypi.org/simple" }

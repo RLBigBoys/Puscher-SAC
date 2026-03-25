@@ -7,8 +7,18 @@ from dataclasses import dataclass
 class Config:
     env_id: str = "Pusher-v5"
     seed: int = 42
+<<<<<<< HEAD
     total_timesteps: int = 300_000
     learning_rate: float = 3e-4
+=======
+    max_episode_steps: int = 200
+    total_timesteps: int = 300_000
+    learning_rate: float = 3e-4
+    actor_lr: float = 3e-4
+    critic_lr: float = 3e-4
+    alpha_lr: float = 3e-4
+    alpha_init: float = 0.2
+>>>>>>> d65a859ed45d7f3d5bdc83cb1279b522b7a16e68
     gamma: float = 0.99
     buffer_size: int = 200_000
     batch_size: int = 256
@@ -17,6 +27,14 @@ class Config:
     gradient_steps: int = 1
     learning_starts: int = 1_000
     hidden_sizes: tuple[int, int] = (256, 256)
+<<<<<<< HEAD
+=======
+    log_std_min: float = -20.0
+    log_std_max: float = 2.0
+    target_entropy_scale: float = 1.0
+    reward_scale: float = 1.0
+    log_interval_steps: int = 400
+>>>>>>> d65a859ed45d7f3d5bdc83cb1279b522b7a16e68
     load_mode: str = "none"
     source_run_dir: str | None = None
     n_eval_episodes: int = 20

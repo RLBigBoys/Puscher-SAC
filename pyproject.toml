@@ -10,6 +10,9 @@ dependencies = [
     "imageio-ffmpeg>=0.6.0",
     "matplotlib>=3.10.8",
     "numpy>=2.4.3",
+<<<<<<< HEAD
     "stable-baselines3>=2.7.1",
+=======
+>>>>>>> d65a859ed45d7f3d5bdc83cb1279b522b7a16e68
     "torch>=2.11.0",
 ]

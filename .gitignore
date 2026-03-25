@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Python
 __pycache__/
 *.py[cod]
@@ -26,3 +27,13 @@ artifacts/
 weights/
 logs/
 videos/
+=======
+artifacts/
+.venv/
+__pycache__/
+*.pyc
+*.zip
+*.mp4
+*.pt
+*.pkl
+>>>>>>> d65a859ed45d7f3d5bdc83cb1279b522b7a16e68

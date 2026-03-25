@@ -115,12 +115,15 @@ def collect_runtime_metadata() -> dict[str, str]:
         metadata["torch"] = torch.__version__
     except Exception:
         metadata["torch"] = "unknown"
+<<<<<<< HEAD
     try:
         import stable_baselines3
 
         metadata["stable_baselines3"] = stable_baselines3.__version__
     except Exception:
         metadata["stable_baselines3"] = "unknown"
+=======
+>>>>>>> d65a859ed45d7f3d5bdc83cb1279b522b7a16e68
     return metadata
 
 
