@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.venv/
+.env
+.python-version
+weights/
+logs/
+videos/
+*.pt
+*.mp4
+*.json
