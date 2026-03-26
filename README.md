@@ -23,7 +23,6 @@ In this repository, the word **environment** means the MuJoCo Pusher-v5 task fro
 - [🧰 Main Dependencies and Project Entry Points](#-main-dependencies-and-project-entry-points)
 - [📐 Mathematics and Notation](#-mathematics-and-notation)
 - [🧠 Soft Actor-Critic Algorithm](#-soft-actor-critic-algorithm)
-- [🖼️ Artifact Gallery](#️-artifact-gallery)
 - [⚙️ Commands](#️-commands)
 - [📊 Training Results](#-training-results)
 - [📚 References](#-references)
@@ -146,6 +145,11 @@ Where Nm is Newton-meter. It is a force that causes rotation.
   - `Q^ϕ(s, a)` is the **soft action-value function**, parameterized by `ϕ`.
   - `V^ψ(s)` is the **soft state-value function**, parameterized by `ψ`.
   - `ℋ(π(⋅|s))` is the **entropy** of the policy at state `s`.
+  - `τ` is a **trajectory**, which is a sequence of states, actions, and rewards.
+  - `D` is the random variable of the **done flag**.
+  - `d` is the value of the **done flag**, which is 1 if the episode terminated and 0 otherwise.
+  - `p_{\text{object}}` is the 3D **position of the object**.
+  - `p_{\text{goal}}` is the 3D **position of the goal**.
 
 ### Soft Actor-Critic objective
 
@@ -204,23 +208,47 @@ a_t = \tanh(\mu_\theta(s_t) + \sigma_\theta(s_t) \cdot \epsilon), \quad \epsilon
 y(s, a, s') = r(s, a) + \gamma(1-d) \cdot \left[\min_{i=1,2} Q^{\phi'_i}(s', a') - \alpha \log \pi^\theta(a'|s')\right]
 ```
 
-
 ### Loss functions
 
-**Critic loss** trains the Q-networks to predict TD-targets:
+**Critic loss** trains the Q-networks to predict TD-targets. The expectation is taken over transitions sampled from the replay buffer \(\mathcal{D}\):
+
 ```math
-\mathcal{L}_Q(\phi) = \mathbb{E}\left[(Q^\phi(s,a) - y(s,a,s'))^2\right]
+\mathcal{L}_Q(\phi) = \mathbb{E}_{(S,A,R,S',D) \sim \mathcal{D}}\left[\left(Q^\phi(S,A) - Y(S,A,S')\right)^2\right]
 ```
 
-**Actor loss** improves the policy to maximize soft Q-values:
+where the TD-target is
+
 ```math
-\mathcal{L}_\pi(\theta) = \mathbb{E}\left[\alpha \log \pi^\theta(a \mid s) - \min_{i=1,2} Q^{\phi_i}(s,a)\right]
+Y(S,A,S') = R + \gamma(1-D)\cdot\left[\min_{i=1,2} Q^{\phi'_i}(S',A') - \alpha \log \pi^\theta(A' \mid S')\right]
 ```
 
-**Alpha loss** tunes the temperature to maintain target entropy:
+with 
 ```math
-\mathcal{L}_\alpha = \mathbb{E}\left[-\alpha (\log \pi^\theta(a \mid s) + \bar{\mathcal{H}})\right]
+A' \sim \pi^\theta(\cdot \mid S')
 ```
+and 
+```math
+D \in \{0,1\}
+```
+ is the episode termination flag.
+
+---
+
+**Actor loss** improves the policy to maximize soft Q-values. The expectation is over states from the replay buffer and actions sampled from the current policy:
+
+```math
+\mathcal{L}_\pi(\theta) = \mathbb{E}_{S \sim \mathcal{D},\, A \sim \pi^\theta}\left[\alpha \log \pi^\theta(A \mid S) - \min_{i=1,2} Q^{\phi_i}(S,A)\right]
+```
+
+---
+
+**Alpha loss** tunes the temperature to maintain target entropy. The expectation is over state-action pairs from the replay buffer:
+
+```math
+\mathcal{L}_\alpha = \mathbb{E}_{S \sim \mathcal{D},\, A \sim \pi^\theta}\left[-\alpha \left(\log \pi^\theta(A \mid S) + \bar{\mathcal{H}}\right)\right]
+```
+
+where \(\bar{\mathcal{H}} = -\text{action\_dim} \times \text{target\_entropy\_scale}\) is the target entropy value.
 
 ```math
 r_t = r_t^{\text{dist}} + r_t^{\text{near}} + r_t^{\text{ctrl}}
@@ -233,10 +261,6 @@ r_t = r_t^{\text{dist}} + r_t^{\text{near}} + r_t^{\text{ctrl}}
 ```
 
 -----
-
-## 🖼️ Artifact Gallery
-
-This section is a compact visual index. The full generated artifact listing is available in [doc/report.md](doc/report.md).
 
 ### Training curves
 
